@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>노마드 투자 분석기</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            padding: 50px;
+        }
+        
+        h1 {
+            color: #1e3a8a;
+            text-align: center;
+            font-size: 36px;
+        }
+        
+        p {
+            color: #374151;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background-color: #fef3c7;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #f59e0b;
+        }
+
+        /* 주식 계산기 스타일 */
+        .calculator-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .calculator-section h2 {
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .portfolio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary, .btn-danger {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .stock-item {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stock-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .stock-header h4 {
+            color: #1e3a8a;
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .btn-remove {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-remove:hover {
+            background-color: #dc2626;
+        }
+
+        .stock-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            padding: 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .stock-result {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .result-item span:first-child {
+            font-weight: bold;
+            color: #6b7280;
+        }
+
+        .result-item span:last-child {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .portfolio-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .portfolio-summary h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .summary-item .label {
+            display: block;
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .summary-item .value {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .portfolio-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stock-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>노마드 투자 분석기</h1>
+    <p>2000억 자산가가 프로그래밍을 배우는 중입니다!</p>
+    <div class="highlight">
+        <p><strong>🎯 목표: 2000조 자산가 되기!</strong></p>
+        <p>📈 현재 진행률: HTML/CSS 학습 완료!</p>
+    </div>
+
+    <!-- 주식 계산기 섹션 -->
+    <div class="calculator-section">
+        <h2>📊 주식 포트폴리오 계산기</h2>
+        <p>여러 종목의 수익률을 동시에 계산하고 전체 포트폴리오 수익률을 확인하세요!</p>
+        
+        <div class="portfolio-controls">
+            <button id="addStock" class="btn-primary">+ 종목 추가</button>
+            <button id="calculateAll" class="btn-secondary">전체 계산</button>
+            <button id="clearAll" class="btn-danger">전체 초기화</button>
+        </div>
+
+        <div id="stocksContainer">
+            <!-- 동적으로 종목 입력창들이 추가됩니다 -->
+        </div>
+
+        <div class="portfolio-summary">
+            <h3>📈 포트폴리오 요약</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="label">총 투자금액:</span>
+                    <span id="totalInvestment" class="value">₩0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">현재 가치:</span>
+                    <span id="currentValue" class="value">₩0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">수익/손실:</span>
+                    <span id="profitLoss" class="value">₩0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">전체 수익률:</span>
+                    <span id="totalReturn" class="value">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stockCount = 0;
+
+        // 종목 추가 함수
+        function addStock() {
+            stockCount++;
+            const container = document.getElementById('stocksContainer');
+            const stockDiv = document.createElement('div');
+            stockDiv.className = 'stock-item';
+            stockDiv.innerHTML = `
+                <div class="stock-header">
+                    <h4>종목 ${stockCount}</h4>
+                    <button class="btn-remove" onclick="removeStock(this)">×</button>
+                </div>
+                <div class="stock-inputs">
+                    <div class="input-group">
+                        <label>종목명:</label>
+                        <input type="text" placeholder="예: 삼성전자" class="stock-name">
+                    </div>
+                    <div class="input-group">
+                        <label>매수가:</label>
+                        <input type="number" placeholder="매수가격" class="buy-price" oninput="calculateStock(this)">
+                    </div>
+                    <div class="input-group">
+                        <label>현재가:</label>
+                        <input type="number" placeholder="현재가격" class="current-price" oninput="calculateStock(this)">
+                    </div>
+                    <div class="input-group">
+                        <label>수량:</label>
+                        <input type="number" placeholder="보유수량" class="quantity" oninput="calculateStock(this)">
+                    </div>
+                </div>
+                <div class="stock-result">
+                    <div class="result-item">
+                        <span>투자금액:</span>
+                        <span class="investment-amount">₩0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>현재가치:</span>
+                        <span class="current-amount">₩0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>수익/손실:</span>
+                        <span class="profit-amount">₩0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>수익률:</span>
+                        <span class="return-rate">0%</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(stockDiv);
+        }
+
+        // 종목 제거 함수
+        function removeStock(button) {
+            button.closest('.stock-item').remove();
+            calculatePortfolio();
+        }
+
+        // 개별 종목 계산 함수
+        function calculateStock(input) {
+            const stockItem = input.closest('.stock-item');
+            const buyPrice = parseFloat(stockItem.querySelector('.buy-price').value) || 0;
+            const currentPrice = parseFloat(stockItem.querySelector('.current-price').value) || 0;
+            const quantity = parseFloat(stockItem.querySelector('.quantity').value) || 0;
+
+            const investment = buyPrice * quantity;
+            const currentValue = currentPrice * quantity;
+            const profit = currentValue - investment;
+            const returnRate = investment > 0 ? (profit / investment) * 100 : 0;
+
+            stockItem.querySelector('.investment-amount').textContent = `₩${investment.toLocaleString()}`;
+            stockItem.querySelector('.current-amount').textContent = `₩${currentValue.toLocaleString()}`;
+            stockItem.querySelector('.profit-amount').textContent = `₩${profit.toLocaleString()}`;
+            stockItem.querySelector('.return-rate').textContent = `${returnRate.toFixed(2)}%`;
+
+            // 수익/손실 색상 변경
+            const profitElement = stockItem.querySelector('.profit-amount');
+            const returnElement = stockItem.querySelector('.return-rate');
+            
+            if (profit > 0) {
+                profitElement.style.color = '#10b981';
+                returnElement.style.color = '#10b981';
+            } else if (profit < 0) {
+                profitElement.style.color = '#ef4444';
+                returnElement.style.color = '#ef4444';
+            } else {
+                profitElement.style.color = '#6b7280';
+                returnElement.style.color = '#6b7280';
+            }
+
+            calculatePortfolio();
+        }
+
+        // 전체 포트폴리오 계산 함수
+        function calculatePortfolio() {
+            const stockItems = document.querySelectorAll('.stock-item');
+            let totalInvestment = 0;
+            let totalCurrentValue = 0;
+
+            stockItems.forEach(item => {
+                const investment = parseFloat(item.querySelector('.investment-amount').textContent.replace(/[₩,]/g, '')) || 0;
+                const currentValue = parseFloat(item.querySelector('.current-amount').textContent.replace(/[₩,]/g, '')) || 0;
+                
+                totalInvestment += investment;
+                totalCurrentValue += currentValue;
+            });
+
+            const totalProfit = totalCurrentValue - totalInvestment;
+            const totalReturnRate = totalInvestment > 0 ? (totalProfit / totalInvestment) * 100 : 0;
+
+            document.getElementById('totalInvestment').textContent = `₩${totalInvestment.toLocaleString()}`;
+            document.getElementById('currentValue').textContent = `₩${totalCurrentValue.toLocaleString()}`;
+            document.getElementById('profitLoss').textContent = `₩${totalProfit.toLocaleString()}`;
+            document.getElementById('totalReturn').textContent = `${totalReturnRate.toFixed(2)}%`;
+
+            // 전체 수익률 색상 변경
+            const profitElement = document.getElementById('profitLoss');
+            const returnElement = document.getElementById('totalReturn');
+            
+            if (totalProfit > 0) {
+                profitElement.style.color = '#10b981';
+                returnElement.style.color = '#10b981';
+            } else if (totalProfit < 0) {
+                profitElement.style.color = '#ef4444';
+                returnElement.style.color = '#ef4444';
+            } else {
+                profitElement.style.color = '#6b7280';
+                returnElement.style.color = '#6b7280';
+            }
+        }
+
+        // 전체 계산 함수
+        function calculateAll() {
+            const stockItems = document.querySelectorAll('.stock-item');
+            stockItems.forEach(item => {
+                const inputs = item.querySelectorAll('input[type="number"]');
+                inputs.forEach(input => {
+                    if (input.value) {
+                        calculateStock(input);
+                    }
+                });
+            });
+        }
+
+        // 전체 초기화 함수
+        function clearAll() {
+            document.getElementById('stocksContainer').innerHTML = '';
+            stockCount = 0;
+            calculatePortfolio();
+        }
+
+        // 이벤트 리스너 등록
+        document.getElementById('addStock').addEventListener('click', addStock);
+        document.getElementById('calculateAll').addEventListener('click', calculateAll);
+        document.getElementById('clearAll').addEventListener('click', clearAll);
+
+        // 페이지 로드 시 첫 번째 종목 추가
+        window.addEventListener('load', addStock);
+    </script>
+</body>
+</html>
