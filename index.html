@@ -236,6 +236,227 @@
             font-weight: bold;
         }
 
+        /* 저장/불러오기 섹션 스타일 */
+        .save-load-section {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .save-load-section h3 {
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .save-load-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .portfolio-name-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .save-load-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-save, .btn-load, .btn-history {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save {
+            background-color: #059669;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #047857;
+            transform: translateY(-2px);
+        }
+
+        .btn-load {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-load:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .btn-history {
+            background-color: #8b5cf6;
+            color: white;
+        }
+
+        .btn-history:hover {
+            background-color: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        /* 히스토리 섹션 스타일 */
+        .history-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .history-section h2 {
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .history-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .history-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .history-item {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .history-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+
+        .history-date {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .history-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .history-summary-item {
+            text-align: center;
+            padding: 8px;
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .history-summary-item .label {
+            font-size: 12px;
+            color: #6b7280;
+            display: block;
+        }
+
+        .history-summary-item .value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1e3a8a;
+            display: block;
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .btn-load-history, .btn-delete-history {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-load-history {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-load-history:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-delete-history {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-delete-history:hover {
+            background-color: #dc2626;
+        }
+
+        /* 로딩 및 메시지 스타일 */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+        }
+
+        .success-message {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .error-message {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
         /* 반응형 디자인 */
         @media (max-width: 768px) {
             .portfolio-controls {
@@ -253,6 +474,18 @@
 
             .calculator-section {
                 padding: 20px;
+            }
+
+            .save-load-buttons {
+                flex-direction: column;
+            }
+
+            .history-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .history-actions {
+                justify-content: center;
             }
         }
     </style>
@@ -276,6 +509,22 @@
             <button id="addStock" class="btn-primary">+ 종목 추가</button>
             <button id="calculateAll" class="btn-secondary">전체 계산</button>
             <button id="clearAll" class="btn-danger">전체 초기화</button>
+        </div>
+
+        <!-- 저장/불러오기 섹션 -->
+        <div class="save-load-section">
+            <h3>💾 포트폴리오 저장 & 불러오기</h3>
+            <div class="save-load-controls">
+                <div class="input-group">
+                    <label for="portfolioName">포트폴리오 이름:</label>
+                    <input type="text" id="portfolioName" placeholder="예: 내 주식 포트폴리오 2024" class="portfolio-name-input">
+                </div>
+                <div class="save-load-buttons">
+                    <button id="savePortfolio" class="btn-save">💾 서버에 저장</button>
+                    <button id="loadPortfolio" class="btn-load">📂 불러오기</button>
+                    <button id="showHistory" class="btn-history">📋 저장 기록</button>
+                </div>
+            </div>
         </div>
 
         <div id="stocksContainer">
@@ -302,6 +551,18 @@
                     <span id="totalReturn" class="value">0%</span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 저장 기록 히스토리 섹션 -->
+    <div id="historySection" class="history-section" style="display: none;">
+        <h2>📋 저장된 포트폴리오 기록</h2>
+        <div class="history-controls">
+            <button id="refreshHistory" class="btn-secondary">🔄 새로고침</button>
+            <button id="hideHistory" class="btn-danger">✖ 닫기</button>
+        </div>
+        <div id="historyList" class="history-list">
+            <!-- 저장된 기록들이 여기에 표시됩니다 -->
         </div>
     </div>
 
@@ -458,10 +719,266 @@
             calculatePortfolio();
         }
 
+        // ===== 서버 저장/불러오기 기능 =====
+        
+        // 서버 API 엔드포인트 설정
+        // 로컬 테스트용: 'http://localhost:3000/api'
+        // 실제 서버용: 'https://your-domain.com/api'
+        const API_BASE_URL = 'http://localhost:3000/api'; // 로컬 테스트용
+        
+        // 현재 포트폴리오 데이터를 가져오는 함수
+        function getCurrentPortfolioData() {
+            const stockItems = document.querySelectorAll('.stock-item');
+            const stocks = [];
+            
+            stockItems.forEach(item => {
+                const stockName = item.querySelector('.stock-name').value;
+                const buyPrice = parseFloat(item.querySelector('.buy-price').value) || 0;
+                const currentPrice = parseFloat(item.querySelector('.current-price').value) || 0;
+                const quantity = parseFloat(item.querySelector('.quantity').value) || 0;
+                
+                if (stockName && buyPrice && currentPrice && quantity) {
+                    stocks.push({
+                        name: stockName,
+                        buyPrice: buyPrice,
+                        currentPrice: currentPrice,
+                        quantity: quantity
+                    });
+                }
+            });
+            
+            // 포트폴리오 요약 정보도 포함
+            const totalInvestment = parseFloat(document.getElementById('totalInvestment').textContent.replace(/[₩,]/g, '')) || 0;
+            const currentValue = parseFloat(document.getElementById('currentValue').textContent.replace(/[₩,]/g, '')) || 0;
+            const profitLoss = parseFloat(document.getElementById('profitLoss').textContent.replace(/[₩,]/g, '')) || 0;
+            const totalReturn = parseFloat(document.getElementById('totalReturn').textContent.replace(/[%]/g, '')) || 0;
+            
+            return {
+                name: document.getElementById('portfolioName').value || '이름 없는 포트폴리오',
+                stocks: stocks,
+                summary: {
+                    totalInvestment: totalInvestment,
+                    currentValue: currentValue,
+                    profitLoss: profitLoss,
+                    totalReturn: totalReturn
+                },
+                createdAt: new Date().toISOString()
+            };
+        }
+        
+        // 서버에 포트폴리오 저장하기
+        async function savePortfolioToServer() {
+            const portfolioName = document.getElementById('portfolioName').value.trim();
+            
+            if (!portfolioName) {
+                showMessage('포트폴리오 이름을 입력해주세요!', 'error');
+                return;
+            }
+            
+            const portfolioData = getCurrentPortfolioData();
+            
+            if (portfolioData.stocks.length === 0) {
+                showMessage('저장할 종목 데이터가 없습니다!', 'error');
+                return;
+            }
+            
+            try {
+                showMessage('서버에 저장 중...', 'loading');
+                
+                // 실제 서버 API 호출
+                const response = await fetch(`${API_BASE_URL}/portfolios`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(portfolioData)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showMessage(`✅ "${portfolioName}" 포트폴리오가 성공적으로 저장되었습니다!`, 'success');
+                    document.getElementById('portfolioName').value = '';
+                } else {
+                    throw new Error('서버 응답 오류');
+                }
+            } catch (error) {
+                console.error('저장 오류:', error);
+                // 서버가 없을 때를 위한 임시 로컬 저장
+                saveToLocalStorage(portfolioData);
+                showMessage(`📝 로컬에 임시 저장되었습니다. (서버 연결 실패)`, 'success');
+            }
+        }
+        
+        // 로컬 스토리지에 임시 저장 (서버 없을 때 사용)
+        function saveToLocalStorage(portfolioData) {
+            let savedPortfolios = JSON.parse(localStorage.getItem('portfolios') || '[]');
+            portfolioData.id = Date.now().toString();
+            savedPortfolios.push(portfolioData);
+            localStorage.setItem('portfolios', JSON.stringify(savedPortfolios));
+        }
+        
+        // 서버에서 포트폴리오 목록 불러오기
+        async function loadPortfoliosFromServer() {
+            try {
+                showMessage('서버에서 불러오는 중...', 'loading');
+                
+                const response = await fetch(`${API_BASE_URL}/portfolios`);
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    const portfolios = result.data || []; // 서버 응답에서 data 배열 추출
+                    displayPortfolioHistory(portfolios);
+                    showMessage('', ''); // 메시지 제거
+                } else {
+                    throw new Error('서버 응답 오류');
+                }
+            } catch (error) {
+                console.error('불러오기 오류:', error);
+                // 서버가 없을 때 로컬 스토리지에서 불러오기
+                const localPortfolios = JSON.parse(localStorage.getItem('portfolios') || '[]');
+                displayPortfolioHistory(localPortfolios);
+                showMessage('로컬 저장된 데이터를 불러왔습니다.', 'success');
+            }
+        }
+        
+        // 특정 포트폴리오를 현재 화면에 불러오기
+        function loadPortfolioData(portfolioData) {
+            // 기존 종목들 모두 제거
+            document.getElementById('stocksContainer').innerHTML = '';
+            stockCount = 0;
+            
+            // 저장된 종목들 추가
+            portfolioData.stocks.forEach(stock => {
+                addStock();
+                const lastStockItem = document.querySelector('.stock-item:last-child');
+                lastStockItem.querySelector('.stock-name').value = stock.name;
+                lastStockItem.querySelector('.buy-price').value = stock.buyPrice;
+                lastStockItem.querySelector('.current-price').value = stock.currentPrice;
+                lastStockItem.querySelector('.quantity').value = stock.quantity;
+                
+                // 계산 실행
+                calculateStock(lastStockItem.querySelector('.buy-price'));
+            });
+            
+            showMessage(`✅ "${portfolioData.name}" 포트폴리오를 불러왔습니다!`, 'success');
+            
+            // 히스토리 섹션 숨기기
+            document.getElementById('historySection').style.display = 'none';
+        }
+        
+        // 포트폴리오 히스토리 표시
+        function displayPortfolioHistory(portfolios) {
+            const historyList = document.getElementById('historyList');
+            
+            if (portfolios.length === 0) {
+                historyList.innerHTML = '<div class="loading">저장된 포트폴리오가 없습니다.</div>';
+                return;
+            }
+            
+            historyList.innerHTML = portfolios.map(portfolio => `
+                <div class="history-item">
+                    <div class="history-header">
+                        <span class="history-name">${portfolio.name}</span>
+                        <span class="history-date">${new Date(portfolio.createdAt).toLocaleString('ko-KR')}</span>
+                    </div>
+                    <div class="history-summary">
+                        <div class="history-summary-item">
+                            <span class="label">종목 수</span>
+                            <span class="value">${portfolio.stocks.length}개</span>
+                        </div>
+                        <div class="history-summary-item">
+                            <span class="label">투자금액</span>
+                            <span class="value">₩${portfolio.summary.totalInvestment.toLocaleString()}</span>
+                        </div>
+                        <div class="history-summary-item">
+                            <span class="label">현재가치</span>
+                            <span class="value">₩${portfolio.summary.currentValue.toLocaleString()}</span>
+                        </div>
+                        <div class="history-summary-item">
+                            <span class="label">수익률</span>
+                            <span class="value" style="color: ${portfolio.summary.profitLoss >= 0 ? '#10b981' : '#ef4444'}">${portfolio.summary.totalReturn.toFixed(2)}%</span>
+                        </div>
+                    </div>
+                    <div class="history-actions">
+                        <button class="btn-load-history" onclick="loadPortfolioData(${JSON.stringify(portfolio).replace(/"/g, '&quot;')})">📂 불러오기</button>
+                        <button class="btn-delete-history" onclick="deletePortfolio('${portfolio.id || portfolio.createdAt}')">🗑️ 삭제</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // 포트폴리오 삭제
+        async function deletePortfolio(portfolioId) {
+            if (!confirm('정말로 이 포트폴리오를 삭제하시겠습니까?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/portfolios/${portfolioId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    showMessage('포트폴리오가 삭제되었습니다.', 'success');
+                    loadPortfoliosFromServer(); // 목록 새로고침
+                } else {
+                    throw new Error('서버 응답 오류');
+                }
+            } catch (error) {
+                console.error('삭제 오류:', error);
+                // 로컬 스토리지에서 삭제
+                let savedPortfolios = JSON.parse(localStorage.getItem('portfolios') || '[]');
+                savedPortfolios = savedPortfolios.filter(p => (p.id || p.createdAt) !== portfolioId);
+                localStorage.setItem('portfolios', JSON.stringify(savedPortfolios));
+                showMessage('로컬에서 삭제되었습니다.', 'success');
+                loadPortfoliosFromServer(); // 목록 새로고침
+            }
+        }
+        
+        // 메시지 표시 함수
+        function showMessage(message, type) {
+            // 기존 메시지 제거
+            const existingMessage = document.querySelector('.message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            if (!message) return;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type === 'error' ? 'error-message' : type === 'success' ? 'success-message' : 'loading'}`;
+            messageDiv.textContent = message;
+            
+            // 저장/불러오기 섹션 다음에 메시지 추가
+            const saveLoadSection = document.querySelector('.save-load-section');
+            saveLoadSection.parentNode.insertBefore(messageDiv, saveLoadSection.nextSibling);
+            
+            // 3초 후 자동 제거 (로딩 메시지가 아닌 경우)
+            if (type !== 'loading') {
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
+                }, 3000);
+            }
+        }
+
         // 이벤트 리스너 등록
         document.getElementById('addStock').addEventListener('click', addStock);
         document.getElementById('calculateAll').addEventListener('click', calculateAll);
         document.getElementById('clearAll').addEventListener('click', clearAll);
+        
+        // 새로운 저장/불러오기 기능 이벤트 리스너
+        document.getElementById('savePortfolio').addEventListener('click', savePortfolioToServer);
+        document.getElementById('loadPortfolio').addEventListener('click', loadPortfoliosFromServer);
+        document.getElementById('showHistory').addEventListener('click', () => {
+            document.getElementById('historySection').style.display = 'block';
+            loadPortfoliosFromServer();
+        });
+        document.getElementById('refreshHistory').addEventListener('click', loadPortfoliosFromServer);
+        document.getElementById('hideHistory').addEventListener('click', () => {
+            document.getElementById('historySection').style.display = 'none';
+        });
 
         // 페이지 로드 시 첫 번째 종목 추가
         window.addEventListener('load', addStock);
