@@ -521,7 +521,7 @@
                 </div>
                 <div class="save-load-buttons">
                     <button id="savePortfolio" class="btn-save">💾 서버에 저장</button>
-                    <button id="loadPortfolio" class="btn-load">📂 불러오기</button>
+                    <button id="loadPortfolio" class="btn-load">📂 최신 불러오기</button>
                     <button id="showHistory" class="btn-history">📋 저장 기록</button>
                 </div>
             </div>
@@ -818,6 +818,51 @@
             localStorage.setItem('portfolios', JSON.stringify(savedPortfolios));
         }
         
+        // 최신 포트폴리오 불러오기 (불러오기 버튼용)
+        async function loadLatestPortfolio() {
+            try {
+                showMessage('최신 포트폴리오를 불러오는 중...', 'loading');
+                
+                const response = await fetch(`${API_BASE_URL}/portfolios`);
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    const portfolios = result.data || [];
+                    
+                    if (portfolios.length === 0) {
+                        showMessage('저장된 포트폴리오가 없습니다.', 'error');
+                        return;
+                    }
+                    
+                    // 가장 최근 포트폴리오 찾기 (createdAt 기준)
+                    const latestPortfolio = portfolios.reduce((latest, current) => {
+                        return new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest;
+                    });
+                    
+                    loadPortfolioData(latestPortfolio);
+                } else {
+                    throw new Error('서버 응답 오류');
+                }
+            } catch (error) {
+                console.error('불러오기 오류:', error);
+                // 서버가 없을 때 로컬 스토리지에서 불러오기
+                const localPortfolios = JSON.parse(localStorage.getItem('portfolios') || '[]');
+                
+                if (localPortfolios.length === 0) {
+                    showMessage('저장된 포트폴리오가 없습니다.', 'error');
+                    return;
+                }
+                
+                // 로컬에서도 가장 최근 포트폴리오 찾기
+                const latestPortfolio = localPortfolios.reduce((latest, current) => {
+                    return new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest;
+                });
+                
+                loadPortfolioData(latestPortfolio);
+                showMessage('로컬에서 최신 포트폴리오를 불러왔습니다.', 'success');
+            }
+        }
+        
         // 서버에서 포트폴리오 목록 불러오기
         async function loadPortfoliosFromServer() {
             try {
@@ -971,7 +1016,7 @@
         
         // 새로운 저장/불러오기 기능 이벤트 리스너
         document.getElementById('savePortfolio').addEventListener('click', savePortfolioToServer);
-        document.getElementById('loadPortfolio').addEventListener('click', loadPortfoliosFromServer);
+        document.getElementById('loadPortfolio').addEventListener('click', loadLatestPortfolio);
         document.getElementById('showHistory').addEventListener('click', () => {
             document.getElementById('historySection').style.display = 'block';
             loadPortfoliosFromServer();
@@ -987,4 +1032,3 @@
 </body>
 
 </html>
-
